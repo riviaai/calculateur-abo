@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abonnement vs Location — Analyse</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#f7f5f2;
+  --white:#ffffff;
+  --ink:#161412;
+  --mid:#6b6560;
+  --faint:#e8e4de;
+  --navy:#1c2e4a;
+  --navy-l:#2a4268;
+  --red:#c0392b;
+  --green:#1e6e42;
+  --amber:#a0620a;
+  --red-bg:#fdf0ee;
+  --green-bg:#eef7f2;
+  --amber-bg:#fdf6ea;
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.wrap{
+  max-width:900px;
+  margin:0 auto;
+  padding:64px 32px 100px;
+}
+
+/* ─── HEADER ─── */
+header{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  gap:32px;
+  padding-bottom:48px;
+  margin-bottom:56px;
+  border-bottom:2px solid var(--navy);
+}
+
+.kicker{
+  font-family:'DM Mono',monospace;
+  font-size:10px;
+  letter-spacing:0.2em;
+  color:var(--mid);
+  text-transform:uppercase;
+  margin-bottom:14px;
+  display:block;
+}
+
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:clamp(36px,5vw,54px);
+  line-height:1.05;
+  letter-spacing:-0.01em;
+  color:var(--navy);
+}
+
+h1 i{font-style:italic;color:var(--red)}
+
+.hd-eco{text-align:right}
+.hd-eco-lbl{
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:0.2em;
+  color:var(--mid);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.hd-eco-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;
+  font-weight:300;
+  color:var(--navy);
+  letter-spacing:-0.01em;
+}
+
+/* ─── SECTION ─── */
+.sec{margin-bottom:56px}
+
+.sec-title{
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--mid);
+  padding-bottom:12px;
+  border-bottom:1px solid var(--faint);
+  margin-bottom:24px;
+}
+
+/* ─── SLIDERS ─── */
+.slider-row{
+  display:grid;
+  grid-template-columns:1fr 220px 96px;
+  align-items:center;
+  gap:24px;
+  padding:14px 0;
+  border-bottom:1px solid var(--faint);
+}
+.slider-row:first-child{padding-top:4px}
+
+.sl-name{font-size:13px;color:var(--mid);font-weight:300}
+
+input[type=range]{
+  -webkit-appearance:none;
+  width:100%;height:2px;
+  background:var(--faint);
+  outline:none;cursor:pointer;
+  border-radius:1px;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:14px;height:14px;
+  border-radius:50%;
+  background:var(--navy);
+  cursor:pointer;
+  border:2px solid var(--white);
+  box-shadow:0 0 0 1px var(--navy);
+  transition:transform 0.15s;
+}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+
+.sl-val{
+  font-family:'DM Mono',monospace;
+  font-size:13px;
+  color:var(--navy);
+  text-align:right;
+  font-weight:400;
+}
+
+/* ─── METRICS ─── */
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.m{
+  background:var(--white);
+  border:1px solid var(--faint);
+  padding:24px 20px 20px;
+  position:relative;
+}
+
+.m::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:var(--navy);
+}
+
+.m.pos::after{background:var(--green)}
+.m.neg::after{background:var(--red)}
+.m.warn::after{background:var(--amber)}
+
+.m-lbl{
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--mid);
+  margin-bottom:14px;
+  display:block;
+}
+
+.m-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(20px,2.8vw,30px);
+  font-weight:300;
+  line-height:1;
+  color:var(--navy);
+  margin-bottom:8px;
+  letter-spacing:-0.01em;
+  transition:color 0.25s;
+}
+.m-num.pos{color:var(--green)}
+.m-num.neg{color:var(--red)}
+.m-num.warn{color:var(--amber)}
+
+.m-hint{font-size:10px;color:var(--mid)}
+
+/* ─── TABLE ─── */
+.tbl-wrap{
+  background:var(--white);
+  border:1px solid var(--faint);
+  overflow:hidden;
+}
+
+table{width:100%;border-collapse:collapse}
+
+thead{background:var(--navy)}
+
+th{
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:0.18em;
+  color:rgba(255,255,255,0.6);
+  text-transform:uppercase;
+  padding:12px 16px;
+  text-align:right;
+  font-weight:300;
+}
+th:first-child{text-align:left}
+
+td{
+  padding:13px 16px;
+  text-align:right;
+  color:var(--mid);
+  font-size:13px;
+  border-bottom:1px solid var(--faint);
+  font-family:'DM Mono',monospace;
+  font-weight:300;
+}
+td:first-child{
+  text-align:left;
+  font-family:'DM Sans',sans-serif;
+  color:var(--ink);
+  font-weight:300;
+}
+
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#fafaf8}
+
+tr.cur{background:var(--navy)}
+tr.cur td{color:rgba(255,255,255,0.75);border-bottom-color:transparent}
+tr.cur td:first-child{
+  color:#fff;
+  font-weight:500;
+}
+
+.badge{
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:0.08em;
+  padding:3px 10px;
+  border-radius:2px;
+}
+.badge.g{background:var(--green-bg);color:var(--green)}
+.badge.r{background:var(--red-bg);color:var(--red)}
+.badge.a{background:var(--amber-bg);color:var(--amber)}
+
+/* ─── FOOTER ─── */
+footer{
+  margin-top:48px;
+  padding-top:20px;
+  border-top:1px solid var(--faint);
+  display:flex;
+  justify-content:space-between;
+  font-family:'DM Mono',monospace;
+  font-size:10px;
+  color:var(--mid);
+  letter-spacing:0.08em;
+}
+
+@media(max-width:680px){
+  header{grid-template-columns:1fr;gap:20px}
+  .hd-eco{text-align:left}
+  .metrics{grid-template-columns:1fr 1fr;gap:8px}
+  .slider-row{grid-template-columns:1fr 80px;gap:12px}
+  .slider-row input{display:none}
+  th:nth-child(3),td:nth-child(3){display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <span class="kicker">Analyse financière · AED</span>
+      <h1>Abonnement<br><i>vs</i> location à l'unité</h1>
+    </div>
+    <div class="hd-eco">
+      <div class="hd-eco-lbl">Économie nette / mois</div>
+      <div class="hd-eco-val" id="hd-eco">—</div>
+    </div>
+  </header>
+
+  <section class="sec">
+    <p class="sec-title">Paramètres</p>
+    <div>
+      <div class="slider-row">
+        <span class="sl-name">Locations par mois</span>
+        <input type="range" id="nb" min="1" max="10" step="1" value="2">
+        <span class="sl-val" id="nb-out">2</span>
+      </div>
+      <div class="slider-row">
+        <span class="sl-name">Prix unitaire sans abonnement</span>
+        <input type="range" id="price" min="1000" max="5000" step="50" value="2150">
+        <span class="sl-val" id="price-out">2 150 AED</span>
+      </div>
+      <div class="slider-row">
+        <span class="sl-name">Prix unitaire avec abonnement</span>
+        <input type="range" id="disc" min="800" max="4000" step="50" value="1550">
+        <span class="sl-val" id="disc-out">1 550 AED</span>
+      </div>
+      <div class="slider-row">
+        <span class="sl-name">Abonnement mensuel</span>
+        <input type="range" id="abo" min="200" max="3000" step="50" value="990">
+        <span class="sl-val" id="abo-out">990 AED</span>
+      </div>
+      <div class="slider-row">
+        <span class="sl-name">Frais d'entrée</span>
+        <input type="range" id="entry" min="0" max="50000" step="500" value="18990">
+        <span class="sl-val" id="entry-out">18 990 AED</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="sec-title">Résumé — situation actuelle</p>
+    <div class="metrics">
+      <div class="m" id="m-brut">
+        <span class="m-lbl">Éco. brute / mois</span>
+        <div class="m-num" id="s-brut">—</div>
+        <div class="m-hint">avant abonnement</div>
+      </div>
+      <div class="m" id="m-net">
+        <span class="m-lbl">Éco. nette / mois</span>
+        <div class="m-num" id="s-net">—</div>
+        <div class="m-hint">après abonnement</div>
+      </div>
+      <div class="m" id="m-roi">
+        <span class="m-lbl">ROI</span>
+        <div class="m-num" id="s-roi">—</div>
+        <div class="m-hint">amortissement entrée</div>
+      </div>
+      <div class="m" id="m-seuil">
+        <span class="m-lbl">Seuil rentabilité</span>
+        <div class="m-num" id="s-seuil">—</div>
+        <div class="m-hint">locations / mois min.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="sec-title">Comparatif par volume</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Locations</th>
+            <th>Sans abo</th>
+            <th>Avec abo</th>
+            <th>Éco. nette</th>
+            <th>ROI entrée</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>Usage confidentiel · interne</span>
+    <span>Analyse financière</span>
+  </footer>
+</div>
+
+<script>
+function fmt(n){return Math.round(n).toLocaleString('fr-FR')}
+function fmtA(n){return fmt(n)+' AED'}
+
+function compute(nb,price,disc,abo,entry){
+  const sans=nb*price,avec=nb*disc+abo;
+  const brut=nb*(price-disc),net=brut-abo;
+  const roi_m=net>0?entry/net:Infinity;
+  return{sans,avec,brut,net,roi_m,roi_y:roi_m/12};
+}
+function seuil(price,disc,abo){
+  const d=price-disc;
+  return d<=0?Infinity:Math.ceil(abo/d);
+}
+function verdict(roi_y,net){
+  if(net<=0)return'<span class="badge r">perte</span>';
+  if(roi_y>7)return'<span class="badge r">ROI > 7 ans</span>';
+  if(roi_y>3)return'<span class="badge a">ROI > 3 ans</span>';
+  if(roi_y>1)return'<span class="badge a">ROI > 1 an</span>';
+  return'<span class="badge g">rentable</span>';
+}
+
+function setCard(id,cls){
+  const el=document.getElementById(id);
+  el.className='m '+cls;
+}
+
+function update(){
+  const nb=+document.getElementById('nb').value;
+  const price=+document.getElementById('price').value;
+  const disc=+document.getElementById('disc').value;
+  const abo=+document.getElementById('abo').value;
+  const entry=+document.getElementById('entry').value;
+
+  document.getElementById('nb-out').textContent=nb;
+  document.getElementById('price-out').textContent=fmt(price)+' AED';
+  document.getElementById('disc-out').textContent=fmt(disc)+' AED';
+  document.getElementById('abo-out').textContent=fmt(abo)+' AED';
+  document.getElementById('entry-out').textContent=fmt(entry)+' AED';
+
+  const c=compute(nb,price,disc,abo,entry);
+
+  document.getElementById('hd-eco').textContent=(c.net>=0?'+':'')+fmtA(c.net);
+
+  document.getElementById('s-brut').textContent=fmtA(c.brut);
+  setCard('m-brut','');
+
+  const nEl=document.getElementById('s-net');
+  nEl.textContent=(c.net>=0?'+':'')+fmtA(c.net);
+  const nCls=c.net>0?'pos':'neg';
+  nEl.className='m-num '+nCls;
+  setCard('m-net',nCls);
+
+  const rEl=document.getElementById('s-roi');
+  if(!isFinite(c.roi_m)){rEl.textContent='∞';rEl.className='m-num neg';setCard('m-roi','neg');}
+  else{
+    const y=c.roi_y;
+    rEl.textContent=y>10?'> 10 ans':y.toFixed(1)+' ans';
+    const rCls=y>7?'neg':y>3?'warn':'pos';
+    rEl.className='m-num '+rCls;
+    setCard('m-roi',rCls);
+  }
+
+  const s=seuil(price,disc,abo);
+  const sEl=document.getElementById('s-seuil');
+  sEl.textContent=isFinite(s)?s+' loc.':'∞';
+  const sCls=nb>=s?'pos':'warn';
+  sEl.className='m-num '+sCls;
+  setCard('m-seuil',sCls);
+
+  const tbody=document.getElementById('tbody');
+  tbody.innerHTML='';
+  for(let i=1;i<=10;i++){
+    const r=compute(i,price,disc,abo,entry);
+    const tr=document.createElement('tr');
+    if(i===nb)tr.className='cur';
+    const netC=r.net>0?'var(--green)':'var(--red)';
+    tr.innerHTML=`
+      <td>${i} location${i>1?'s':''}</td>
+      <td>${fmtA(r.sans)}</td>
+      <td>${fmtA(r.avec)}</td>
+      <td style="color:${netC}">${r.net>0?'+':''}${fmtA(r.net)}</td>
+      <td>${!isFinite(r.roi_m)?'∞':r.roi_y>10?'> 10 ans':r.roi_y.toFixed(1)+' ans'}</td>
+      <td>${verdict(r.roi_y,r.net)}</td>`;
+    tbody.appendChild(tr);
+  }
+
+  ['nb','price','disc','abo','entry'].forEach(id=>{
+    const el=document.getElementById(id);
+    const pct=(el.value-el.min)/(el.max-el.min)*100;
+    el.style.background=`linear-gradient(90deg,var(--navy) ${pct}%,var(--faint) ${pct}%)`;
+  });
+}
+
+['nb','price','disc','abo','entry'].forEach(id=>
+  document.getElementById(id).addEventListener('input',update));
+update();
+</script>
+</body>
+</html>
