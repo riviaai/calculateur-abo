@@ -3,327 +3,345 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abonnement vs Location</title>
+<title>Abonnement vs Location — Analyse</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap');
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-:root {
-  --bg: #0f0f0f;
-  --s1: #161616;
-  --s2: #1c1c1c;
-  --b1: #262626;
-  --b2: #333;
-  --text: #e8e8e8;
-  --mid: #a8a8a8;
-  --dim: #525252;
-  --green: #4ade80;
-  --red: #f87171;
-  --amber: #fbbf24;
+:root{
+  --ink:#0a0906;
+  --paper:#f5f0e8;
+  --gold:#b8976a;
+  --gold-d:#8a6e4b;
+  --gold-l:#d4b896;
+  --dim:#b0a898;
+  --faint:#ddd5c8;
+  --green:#4a7c59;
+  --red:#8b3a3a;
+  --amber:#8a6e2a;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'IBM Plex Sans', system-ui, sans-serif;
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 1.5;
-  min-height: 100vh;
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'DM Mono',monospace;
+  font-weight:300;
+  font-size:13px;
+  line-height:1.6;
+  min-height:100vh;
 }
 
-.layout {
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 64px 24px 96px;
+.wrap{
+  max-width:860px;
+  margin:0 auto;
+  padding:80px 32px 120px;
 }
 
-/* Header */
-.header {
-  border-bottom: 1px solid var(--b1);
-  padding-bottom: 40px;
-  margin-bottom: 48px;
+/* ─── HEADER ─── */
+.hd{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  border-bottom:1px solid rgba(184,151,106,0.25);
+  padding-bottom:48px;
+  margin-bottom:72px;
+  gap:24px;
 }
 
-.tag {
-  font-size: 11px;
-  font-family: 'IBM Plex Mono', monospace;
-  color: var(--dim);
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
+.hd-left{}
+
+.kicker{
+  font-size:10px;
+  letter-spacing:0.3em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:20px;
+  display:block;
 }
 
-h1 {
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  line-height: 1.1;
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:clamp(36px,5vw,58px);
+  line-height:1.0;
+  letter-spacing:-0.01em;
+  color:var(--paper);
 }
 
-h1 em {
-  font-style: normal;
-  color: var(--dim);
+h1 i{
+  font-style:italic;
+  color:var(--gold);
 }
 
-/* Blocks */
-.block {
-  margin-bottom: 48px;
+.hd-right{
+  text-align:right;
+  padding-bottom:6px;
 }
 
-.block-label {
-  font-size: 11px;
-  font-family: 'IBM Plex Mono', monospace;
-  color: var(--dim);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--b1);
-  margin-bottom: 20px;
+.hd-stat-label{
+  font-size:9px;
+  letter-spacing:0.2em;
+  color:var(--gold-d);
+  text-transform:uppercase;
+  margin-bottom:4px;
 }
 
-/* Sliders */
-.sliders { display: flex; flex-direction: column; gap: 0; }
-
-.slider-row {
-  display: grid;
-  grid-template-columns: 200px 1fr 80px;
-  align-items: center;
-  gap: 20px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--b1);
+.hd-stat-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+  font-weight:300;
+  color:var(--paper);
+  letter-spacing:-0.01em;
 }
 
-.slider-row:first-child { border-top: 1px solid var(--b1); }
+/* ─── SECTION ─── */
+.sec{margin-bottom:64px}
 
-.slider-label {
-  font-size: 12px;
-  color: var(--mid);
+.sec-label{
+  font-size:9px;
+  letter-spacing:0.3em;
+  color:var(--gold-d);
+  text-transform:uppercase;
+  margin-bottom:28px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.sec-label::after{content:'';flex:1;height:1px;background:rgba(184,151,106,0.2)}
+
+/* ─── SLIDERS ─── */
+.slider-row{
+  display:grid;
+  grid-template-columns:1fr 240px 90px;
+  align-items:center;
+  gap:28px;
+  padding:16px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.slider-row:first-child{border-top:1px solid rgba(255,255,255,0.05)}
+
+.sl-name{
+  font-size:11px;
+  letter-spacing:0.05em;
+  color:var(--dim);
 }
 
-input[type=range] {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 1px;
-  background: var(--b2);
-  outline: none;
-  cursor: pointer;
+input[type=range]{
+  -webkit-appearance:none;
+  width:100%;
+  height:1px;
+  background:rgba(184,151,106,0.25);
+  outline:none;
+  cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--gold);
+  cursor:pointer;
+  transition:transform 0.15s;
+}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.5)}
+
+.sl-val{
+  font-size:14px;
+  color:var(--gold-l);
+  text-align:right;
+  letter-spacing:0.02em;
 }
 
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--text);
-  cursor: pointer;
-  transition: transform 0.1s;
+/* ─── METRICS ─── */
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border:1px solid rgba(184,151,106,0.2);
+}
+.m{
+  padding:28px 24px;
+  border-right:1px solid rgba(184,151,106,0.15);
+  position:relative;
+}
+.m:last-child{border-right:none}
+
+.m-lbl{
+  font-size:9px;
+  letter-spacing:0.2em;
+  color:var(--gold-d);
+  text-transform:uppercase;
+  margin-bottom:16px;
+  display:block;
+}
+.m-num{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:clamp(22px,3vw,32px);
+  line-height:1;
+  color:var(--paper);
+  letter-spacing:-0.01em;
+  margin-bottom:8px;
+  transition:color 0.3s;
+}
+.m-num.pos{color:#7fb08a}
+.m-num.neg{color:#b07070}
+.m-num.warn{color:#b09a60}
+
+.m-hint{
+  font-size:9px;
+  color:var(--gold-d);
+  letter-spacing:0.05em;
 }
 
-input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.4); }
+/* ─── TABLE ─── */
+table{width:100%;border-collapse:collapse}
 
-.slider-val {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--text);
-  text-align: right;
+thead tr{border-bottom:1px solid rgba(184,151,106,0.3)}
+
+th{
+  font-size:9px;
+  letter-spacing:0.2em;
+  color:var(--gold-d);
+  text-transform:uppercase;
+  padding:0 12px 14px;
+  text-align:right;
+  font-weight:300;
+}
+th:first-child{text-align:left}
+
+td{
+  padding:13px 12px;
+  text-align:right;
+  color:rgba(180,165,145,0.7);
+  font-size:12px;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+td:first-child{text-align:left;color:var(--dim)}
+
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(184,151,106,0.04)}
+
+tr.cur td{
+  color:var(--paper);
+  background:rgba(184,151,106,0.06);
+}
+tr.cur td:first-child{
+  border-left:1px solid var(--gold);
+  padding-left:11px;
+  color:var(--gold-l);
 }
 
-/* Metrics */
-.metrics {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--b1);
+.badge{
+  font-size:9px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:2px 8px;
+  border-radius:1px;
 }
+.badge.g{color:#7fb08a;background:rgba(127,176,138,0.08);border:1px solid rgba(127,176,138,0.2)}
+.badge.r{color:#b07070;background:rgba(176,112,112,0.08);border:1px solid rgba(176,112,112,0.2)}
+.badge.a{color:#b09a60;background:rgba(176,154,96,0.08);border:1px solid rgba(176,154,96,0.2)}
 
-.metric {
-  padding: 24px 20px;
-  border-right: 1px solid var(--b1);
+/* ─── FOOTER ─── */
+.foot{
+  margin-top:80px;
+  padding-top:24px;
+  border-top:1px solid rgba(184,151,106,0.15);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
+.foot-note{font-size:10px;color:var(--gold-d);letter-spacing:0.1em}
+.foot-mark{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(184,151,106,0.3);font-style:italic}
 
-.metric:last-child { border-right: none; }
-
-.m-label {
-  font-size: 10px;
-  color: var(--dim);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  font-family: 'IBM Plex Mono', monospace;
-}
-
-.m-val {
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: 6px;
-}
-
-.m-val.green { color: var(--green); }
-.m-val.red { color: var(--red); }
-.m-val.amber { color: var(--amber); }
-
-.m-unit {
-  font-size: 10px;
-  color: var(--dim);
-  font-family: 'IBM Plex Mono', monospace;
-}
-
-/* Table */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-thead th {
-  font-size: 10px;
-  font-family: 'IBM Plex Mono', monospace;
-  color: var(--dim);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-align: right;
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--b1);
-  font-weight: 400;
-}
-
-thead th:first-child { text-align: left; }
-
-td {
-  padding: 12px;
-  text-align: right;
-  color: var(--dim);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  border-bottom: 1px solid var(--b1);
-}
-
-td:first-child { text-align: left; color: var(--mid); font-family: 'IBM Plex Sans', sans-serif; }
-
-tbody tr:last-child td { border-bottom: none; }
-
-tr.current td {
-  color: var(--text);
-  background: var(--s1);
-}
-
-tr.current td:first-child {
-  color: var(--text);
-  border-left: 2px solid var(--text);
-  padding-left: 10px;
-}
-
-.badge {
-  font-size: 10px;
-  font-family: 'IBM Plex Mono', monospace;
-  padding: 2px 8px;
-  border-radius: 2px;
-  letter-spacing: 0.04em;
-}
-
-.badge.g { color: var(--green); background: rgba(74,222,128,0.06); }
-.badge.r { color: var(--red); background: rgba(248,113,113,0.06); }
-.badge.a { color: var(--amber); background: rgba(251,191,36,0.06); }
-
-/* Note */
-.note {
-  margin-top: 32px;
-  padding: 16px 20px;
-  border-left: 1px solid var(--b2);
-  font-size: 12px;
-  color: var(--dim);
-  line-height: 1.7;
-}
-
-footer {
-  margin-top: 64px;
-  font-size: 11px;
-  font-family: 'IBM Plex Mono', monospace;
-  color: var(--b2);
-  letter-spacing: 0.05em;
-}
-
-@media (max-width: 640px) {
-  .metrics { grid-template-columns: 1fr 1fr; }
-  .metric { border-bottom: 1px solid var(--b1); }
-  .metric:nth-child(2n) { border-right: none; }
-  .slider-row { grid-template-columns: 140px 1fr 64px; gap: 12px; }
-  thead th:nth-child(3), td:nth-child(3) { display: none; }
+@media(max-width:640px){
+  .hd{grid-template-columns:1fr;gap:20px}
+  .hd-right{text-align:left}
+  .metrics{grid-template-columns:1fr 1fr}
+  .m{border-bottom:1px solid rgba(184,151,106,0.15)}
+  .m:nth-child(2n){border-right:none}
+  .slider-row{grid-template-columns:1fr 80px;gap:16px}
+  .slider-row .sl-range{display:none}
+  thead th:nth-child(3),td:nth-child(3){display:none}
 }
 </style>
 </head>
 <body>
-<div class="layout">
+<div class="wrap">
 
-  <header class="header">
-    <p class="tag">// analyse financière · AED</p>
-    <h1>Abonnement <em>vs</em> location à l'unité</h1>
+  <header class="hd">
+    <div class="hd-left">
+      <span class="kicker">Analyse financière · AED</span>
+      <h1>Abonnement<br><i>vs</i> location à l'unité</h1>
+    </div>
+    <div class="hd-right">
+      <div class="hd-stat-label">Situation actuelle</div>
+      <div class="hd-stat-val" id="hd-eco">—</div>
+    </div>
   </header>
 
-  <div class="block">
-    <p class="block-label">Paramètres</p>
+  <section class="sec">
+    <p class="sec-label">Paramètres</p>
     <div class="sliders">
       <div class="slider-row">
-        <span class="slider-label">Locations / mois</span>
-        <input type="range" id="nb" min="1" max="10" step="1" value="2">
-        <span class="slider-val" id="nb-out">2</span>
+        <span class="sl-name">Locations par mois</span>
+        <input class="sl-range" type="range" id="nb" min="1" max="10" step="1" value="2">
+        <span class="sl-val" id="nb-out">2</span>
       </div>
       <div class="slider-row">
-        <span class="slider-label">Prix sans abonnement</span>
-        <input type="range" id="price" min="1000" max="5000" step="50" value="2150">
-        <span class="slider-val" id="price-out">2 150</span>
+        <span class="sl-name">Prix unitaire sans abonnement</span>
+        <input class="sl-range" type="range" id="price" min="1000" max="5000" step="50" value="2150">
+        <span class="sl-val" id="price-out">2 150 AED</span>
       </div>
       <div class="slider-row">
-        <span class="slider-label">Prix avec abonnement</span>
-        <input type="range" id="disc" min="800" max="4000" step="50" value="1550">
-        <span class="slider-val" id="disc-out">1 550</span>
+        <span class="sl-name">Prix unitaire avec abonnement</span>
+        <input class="sl-range" type="range" id="disc" min="800" max="4000" step="50" value="1550">
+        <span class="sl-val" id="disc-out">1 550 AED</span>
       </div>
       <div class="slider-row">
-        <span class="slider-label">Abonnement mensuel</span>
-        <input type="range" id="abo" min="200" max="3000" step="50" value="990">
-        <span class="slider-val" id="abo-out">990</span>
+        <span class="sl-name">Abonnement mensuel</span>
+        <input class="sl-range" type="range" id="abo" min="200" max="3000" step="50" value="990">
+        <span class="sl-val" id="abo-out">990 AED</span>
       </div>
       <div class="slider-row">
-        <span class="slider-label">Frais d'entrée</span>
-        <input type="range" id="entry" min="0" max="50000" step="500" value="18990">
-        <span class="slider-val" id="entry-out">18 990</span>
+        <span class="sl-name">Frais d'entrée</span>
+        <input class="sl-range" type="range" id="entry" min="0" max="50000" step="500" value="18990">
+        <span class="sl-val" id="entry-out">18 990 AED</span>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="block">
-    <p class="block-label">Résumé — situation actuelle</p>
+  <section class="sec">
+    <p class="sec-label">Résumé</p>
     <div class="metrics">
-      <div class="metric">
-        <div class="m-label">Éco. brute / mois</div>
-        <div class="m-val" id="s-brut">—</div>
-        <div class="m-unit">avant abonnement</div>
+      <div class="m">
+        <span class="m-lbl">Éco. brute / mois</span>
+        <div class="m-num" id="s-brut">—</div>
+        <div class="m-hint">avant abonnement</div>
       </div>
-      <div class="metric">
-        <div class="m-label">Éco. nette / mois</div>
-        <div class="m-val" id="s-net">—</div>
-        <div class="m-unit">après abonnement</div>
+      <div class="m">
+        <span class="m-lbl">Éco. nette / mois</span>
+        <div class="m-num" id="s-net">—</div>
+        <div class="m-hint">après abonnement</div>
       </div>
-      <div class="metric">
-        <div class="m-label">ROI</div>
-        <div class="m-val" id="s-roi">—</div>
-        <div class="m-unit">amortissement entrée</div>
+      <div class="m">
+        <span class="m-lbl">ROI</span>
+        <div class="m-num" id="s-roi">—</div>
+        <div class="m-hint">amortissement entrée</div>
       </div>
-      <div class="metric">
-        <div class="m-label">Seuil rentabilité</div>
-        <div class="m-val" id="s-seuil">—</div>
-        <div class="m-unit">locations / mois</div>
+      <div class="m">
+        <span class="m-lbl">Seuil rentabilité</span>
+        <div class="m-num" id="s-seuil">—</div>
+        <div class="m-hint">locations / mois min.</div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="block">
-    <p class="block-label">Comparatif par volume</p>
+  <section class="sec">
+    <p class="sec-label">Comparatif par volume</p>
     <table>
       <thead>
         <tr>
@@ -337,99 +355,100 @@ footer {
       </thead>
       <tbody id="tbody"></tbody>
     </table>
-  </div>
+  </section>
 
-  <div class="note">
-    Économie nette = économie brute − abonnement mensuel. ROI = temps d'amortissement des frais d'entrée. La ligne <strong style="color:var(--mid);font-weight:400">surlignée</strong> correspond à ta situation actuelle.
-  </div>
-
-  <footer style="margin-top:48px">// confidentiel · usage interne</footer>
+  <footer class="foot">
+    <span class="foot-note">Usage confidentiel · interne</span>
+    <span class="foot-mark">Analyse financière</span>
+  </footer>
 </div>
 
 <script>
-function fmt(n) { return Math.round(n).toLocaleString('fr-FR'); }
+function fmt(n){return Math.round(n).toLocaleString('fr-FR')}
+function fmtAED(n){return fmt(n)+' AED'}
 
-function compute(nb, price, disc, abo, entry) {
-  const sans = nb * price, avec = nb * disc + abo;
-  const brut = nb * (price - disc), net = brut - abo;
-  const roi_m = net > 0 ? entry / net : Infinity;
-  return { sans, avec, brut, net, roi_m, roi_y: roi_m / 12 };
+function compute(nb,price,disc,abo,entry){
+  const sans=nb*price,avec=nb*disc+abo;
+  const brut=nb*(price-disc),net=brut-abo;
+  const roi_m=net>0?entry/net:Infinity;
+  return{sans,avec,brut,net,roi_m,roi_y:roi_m/12};
 }
 
-function seuil(price, disc, abo) {
-  const d = price - disc;
-  return d <= 0 ? Infinity : Math.ceil(abo / d);
+function seuil(price,disc,abo){
+  const d=price-disc;
+  return d<=0?Infinity:Math.ceil(abo/d);
 }
 
-function verdict(roi_y, net) {
-  if (net <= 0) return '<span class="badge r">perte</span>';
-  if (roi_y > 7)  return '<span class="badge r">ROI > 7 ans</span>';
-  if (roi_y > 3)  return '<span class="badge a">ROI > 3 ans</span>';
-  if (roi_y > 1)  return '<span class="badge a">ROI > 1 an</span>';
+function verdict(roi_y,net){
+  if(net<=0) return '<span class="badge r">perte</span>';
+  if(roi_y>7) return '<span class="badge r">ROI > 7 ans</span>';
+  if(roi_y>3) return '<span class="badge a">ROI > 3 ans</span>';
+  if(roi_y>1) return '<span class="badge a">ROI > 1 an</span>';
   return '<span class="badge g">rentable</span>';
 }
 
-function update() {
-  const nb    = +document.getElementById('nb').value;
-  const price = +document.getElementById('price').value;
-  const disc  = +document.getElementById('disc').value;
-  const abo   = +document.getElementById('abo').value;
-  const entry = +document.getElementById('entry').value;
+function update(){
+  const nb=+document.getElementById('nb').value;
+  const price=+document.getElementById('price').value;
+  const disc=+document.getElementById('disc').value;
+  const abo=+document.getElementById('abo').value;
+  const entry=+document.getElementById('entry').value;
 
-  document.getElementById('nb-out').textContent    = nb;
-  document.getElementById('price-out').textContent = fmt(price);
-  document.getElementById('disc-out').textContent  = fmt(disc);
-  document.getElementById('abo-out').textContent   = fmt(abo);
-  document.getElementById('entry-out').textContent = fmt(entry);
+  document.getElementById('nb-out').textContent=nb;
+  document.getElementById('price-out').textContent=fmt(price)+' AED';
+  document.getElementById('disc-out').textContent=fmt(disc)+' AED';
+  document.getElementById('abo-out').textContent=fmt(abo)+' AED';
+  document.getElementById('entry-out').textContent=fmt(entry)+' AED';
 
-  const cur = compute(nb, price, disc, abo, entry);
+  const cur=compute(nb,price,disc,abo,entry);
 
-  document.getElementById('s-brut').textContent = fmt(cur.brut) + ' AED';
+  document.getElementById('hd-eco').textContent=(cur.net>=0?'+':'')+fmtAED(cur.net)+' / mois';
 
-  const netEl = document.getElementById('s-net');
-  netEl.textContent = (cur.net >= 0 ? '+' : '') + fmt(cur.net) + ' AED';
-  netEl.className = 'm-val ' + (cur.net > 0 ? 'green' : 'red');
+  document.getElementById('s-brut').textContent=fmtAED(cur.brut);
 
-  const roiEl = document.getElementById('s-roi');
-  if (!isFinite(cur.roi_m)) { roiEl.textContent = '∞'; roiEl.className = 'm-val red'; }
-  else {
-    const y = cur.roi_y;
-    roiEl.textContent = y > 10 ? '> 10 ans' : y.toFixed(1) + ' ans';
-    roiEl.className = 'm-val ' + (y > 7 ? 'red' : y > 3 ? 'amber' : 'green');
+  const nEl=document.getElementById('s-net');
+  nEl.textContent=(cur.net>=0?'+':'')+fmtAED(cur.net);
+  nEl.className='m-num '+(cur.net>0?'pos':'neg');
+
+  const rEl=document.getElementById('s-roi');
+  if(!isFinite(cur.roi_m)){rEl.textContent='∞';rEl.className='m-num neg';}
+  else{
+    const y=cur.roi_y;
+    rEl.textContent=y>10?'> 10 ans':y.toFixed(1)+' ans';
+    rEl.className='m-num '+(y>7?'neg':y>3?'warn':'pos');
   }
 
-  const s = seuil(price, disc, abo);
-  const sEl = document.getElementById('s-seuil');
-  sEl.textContent = isFinite(s) ? s + ' loc.' : '∞';
-  sEl.className = 'm-val ' + (nb >= s ? 'green' : 'amber');
+  const s=seuil(price,disc,abo);
+  const sEl=document.getElementById('s-seuil');
+  sEl.textContent=isFinite(s)?s+' loc.':'∞';
+  sEl.className='m-num '+(nb>=s?'pos':'warn');
 
-  const tbody = document.getElementById('tbody');
-  tbody.innerHTML = '';
-  for (let i = 1; i <= 10; i++) {
-    const r = compute(i, price, disc, abo, entry);
-    const tr = document.createElement('tr');
-    if (i === nb) tr.className = 'current';
-    tr.innerHTML = `
-      <td>${i} loc${i > 1 ? 's' : ''}.</td>
-      <td>${fmt(r.sans)} AED</td>
-      <td>${fmt(r.avec)} AED</td>
-      <td style="color:${r.net > 0 ? 'var(--green)' : 'var(--red)'}">${r.net > 0 ? '+' : ''}${fmt(r.net)} AED</td>
-      <td>${!isFinite(r.roi_m) ? '∞' : r.roi_y > 10 ? '> 10 ans' : r.roi_y.toFixed(1) + ' ans'}</td>
-      <td>${verdict(r.roi_y, r.net)}</td>
-    `;
+  const tbody=document.getElementById('tbody');
+  tbody.innerHTML='';
+  for(let i=1;i<=10;i++){
+    const r=compute(i,price,disc,abo,entry);
+    const tr=document.createElement('tr');
+    if(i===nb)tr.className='cur';
+    const netColor=r.net>0?'#7fb08a':'#b07070';
+    tr.innerHTML=`
+      <td>${i} loc${i>1?'s':''}.</td>
+      <td>${fmtAED(r.sans)}</td>
+      <td>${fmtAED(r.avec)}</td>
+      <td style="color:${netColor}">${r.net>0?'+':''}${fmtAED(r.net)}</td>
+      <td>${!isFinite(r.roi_m)?'∞':r.roi_y>10?'> 10 ans':r.roi_y.toFixed(1)+' ans'}</td>
+      <td>${verdict(r.roi_y,r.net)}</td>`;
     tbody.appendChild(tr);
   }
 
-  ['nb','price','disc','abo','entry'].forEach(id => {
-    const el = document.getElementById(id);
-    const pct = (el.value - el.min) / (el.max - el.min) * 100;
-    el.style.background = `linear-gradient(90deg, var(--text) ${pct}%, var(--b2) ${pct}%)`;
+  ['nb','price','disc','abo','entry'].forEach(id=>{
+    const el=document.getElementById(id);
+    const pct=(el.value-el.min)/(el.max-el.min)*100;
+    el.style.background=`linear-gradient(90deg,var(--gold) ${pct}%,rgba(184,151,106,0.2) ${pct}%)`;
   });
 }
 
-['nb','price','disc','abo','entry'].forEach(id =>
-  document.getElementById(id).addEventListener('input', update)
-);
+['nb','price','disc','abo','entry'].forEach(id=>
+  document.getElementById(id).addEventListener('input',update));
 update();
 </script>
 </body>
