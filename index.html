@@ -5,334 +5,342 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Abonnement vs Location — Analyse</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap');
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --ink:#0a0906;
-  --paper:#f5f0e8;
-  --gold:#b8976a;
-  --gold-d:#8a6e4b;
-  --gold-l:#d4b896;
-  --dim:#b0a898;
-  --faint:#ddd5c8;
-  --green:#4a7c59;
-  --red:#8b3a3a;
-  --amber:#8a6e2a;
+  --bg:#f7f5f2;
+  --white:#ffffff;
+  --ink:#161412;
+  --mid:#6b6560;
+  --faint:#e8e4de;
+  --navy:#1c2e4a;
+  --navy-l:#2a4268;
+  --red:#c0392b;
+  --green:#1e6e42;
+  --amber:#a0620a;
+  --red-bg:#fdf0ee;
+  --green-bg:#eef7f2;
+  --amber-bg:#fdf6ea;
 }
 
-html{scroll-behavior:smooth}
-
 body{
-  background:var(--ink);
-  color:var(--paper);
-  font-family:'DM Mono',monospace;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
   font-weight:300;
-  font-size:13px;
+  font-size:14px;
   line-height:1.6;
-  min-height:100vh;
 }
 
 .wrap{
-  max-width:860px;
+  max-width:900px;
   margin:0 auto;
-  padding:80px 32px 120px;
+  padding:64px 32px 100px;
 }
 
 /* ─── HEADER ─── */
-.hd{
+header{
   display:grid;
   grid-template-columns:1fr auto;
   align-items:end;
-  border-bottom:1px solid rgba(184,151,106,0.25);
+  gap:32px;
   padding-bottom:48px;
-  margin-bottom:72px;
-  gap:24px;
+  margin-bottom:56px;
+  border-bottom:2px solid var(--navy);
 }
 
-.hd-left{}
-
 .kicker{
+  font-family:'DM Mono',monospace;
   font-size:10px;
-  letter-spacing:0.3em;
-  color:var(--gold);
+  letter-spacing:0.2em;
+  color:var(--mid);
   text-transform:uppercase;
-  margin-bottom:20px;
+  margin-bottom:14px;
   display:block;
 }
 
 h1{
   font-family:'Cormorant Garamond',serif;
   font-weight:300;
-  font-size:clamp(36px,5vw,58px);
-  line-height:1.0;
+  font-size:clamp(36px,5vw,54px);
+  line-height:1.05;
   letter-spacing:-0.01em;
-  color:var(--paper);
+  color:var(--navy);
 }
 
-h1 i{
-  font-style:italic;
-  color:var(--gold);
-}
+h1 i{font-style:italic;color:var(--red)}
 
-.hd-right{
-  text-align:right;
-  padding-bottom:6px;
-}
-
-.hd-stat-label{
+.hd-eco{text-align:right}
+.hd-eco-lbl{
+  font-family:'DM Mono',monospace;
   font-size:9px;
   letter-spacing:0.2em;
-  color:var(--gold-d);
+  color:var(--mid);
   text-transform:uppercase;
-  margin-bottom:4px;
+  margin-bottom:6px;
 }
-
-.hd-stat-val{
+.hd-eco-val{
   font-family:'Cormorant Garamond',serif;
-  font-size:28px;
+  font-size:32px;
   font-weight:300;
-  color:var(--paper);
+  color:var(--navy);
   letter-spacing:-0.01em;
 }
 
 /* ─── SECTION ─── */
-.sec{margin-bottom:64px}
+.sec{margin-bottom:56px}
 
-.sec-label{
+.sec-title{
+  font-family:'DM Mono',monospace;
   font-size:9px;
-  letter-spacing:0.3em;
-  color:var(--gold-d);
+  letter-spacing:0.25em;
   text-transform:uppercase;
-  margin-bottom:28px;
-  display:flex;
-  align-items:center;
-  gap:16px;
+  color:var(--mid);
+  padding-bottom:12px;
+  border-bottom:1px solid var(--faint);
+  margin-bottom:24px;
 }
-.sec-label::after{content:'';flex:1;height:1px;background:rgba(184,151,106,0.2)}
 
 /* ─── SLIDERS ─── */
 .slider-row{
   display:grid;
-  grid-template-columns:1fr 240px 90px;
+  grid-template-columns:1fr 220px 96px;
   align-items:center;
-  gap:28px;
-  padding:16px 0;
-  border-bottom:1px solid rgba(255,255,255,0.05);
+  gap:24px;
+  padding:14px 0;
+  border-bottom:1px solid var(--faint);
 }
-.slider-row:first-child{border-top:1px solid rgba(255,255,255,0.05)}
+.slider-row:first-child{padding-top:4px}
 
-.sl-name{
-  font-size:11px;
-  letter-spacing:0.05em;
-  color:var(--dim);
-}
+.sl-name{font-size:13px;color:var(--mid);font-weight:300}
 
 input[type=range]{
   -webkit-appearance:none;
-  width:100%;
-  height:1px;
-  background:rgba(184,151,106,0.25);
-  outline:none;
-  cursor:pointer;
+  width:100%;height:2px;
+  background:var(--faint);
+  outline:none;cursor:pointer;
+  border-radius:1px;
 }
 input[type=range]::-webkit-slider-thumb{
   -webkit-appearance:none;
-  width:10px;height:10px;
+  width:14px;height:14px;
   border-radius:50%;
-  background:var(--gold);
+  background:var(--navy);
   cursor:pointer;
+  border:2px solid var(--white);
+  box-shadow:0 0 0 1px var(--navy);
   transition:transform 0.15s;
 }
-input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.5)}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 
 .sl-val{
-  font-size:14px;
-  color:var(--gold-l);
+  font-family:'DM Mono',monospace;
+  font-size:13px;
+  color:var(--navy);
   text-align:right;
-  letter-spacing:0.02em;
+  font-weight:400;
 }
 
 /* ─── METRICS ─── */
 .metrics{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:0;
-  border:1px solid rgba(184,151,106,0.2);
+  gap:12px;
 }
+
 .m{
-  padding:28px 24px;
-  border-right:1px solid rgba(184,151,106,0.15);
+  background:var(--white);
+  border:1px solid var(--faint);
+  padding:24px 20px 20px;
   position:relative;
 }
-.m:last-child{border-right:none}
+
+.m::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:var(--navy);
+}
+
+.m.pos::after{background:var(--green)}
+.m.neg::after{background:var(--red)}
+.m.warn::after{background:var(--amber)}
 
 .m-lbl{
+  font-family:'DM Mono',monospace;
   font-size:9px;
-  letter-spacing:0.2em;
-  color:var(--gold-d);
+  letter-spacing:0.18em;
   text-transform:uppercase;
-  margin-bottom:16px;
+  color:var(--mid);
+  margin-bottom:14px;
   display:block;
 }
+
 .m-num{
   font-family:'Cormorant Garamond',serif;
+  font-size:clamp(20px,2.8vw,30px);
   font-weight:300;
-  font-size:clamp(22px,3vw,32px);
   line-height:1;
-  color:var(--paper);
-  letter-spacing:-0.01em;
+  color:var(--navy);
   margin-bottom:8px;
-  transition:color 0.3s;
+  letter-spacing:-0.01em;
+  transition:color 0.25s;
 }
-.m-num.pos{color:#7fb08a}
-.m-num.neg{color:#b07070}
-.m-num.warn{color:#b09a60}
+.m-num.pos{color:var(--green)}
+.m-num.neg{color:var(--red)}
+.m-num.warn{color:var(--amber)}
 
-.m-hint{
-  font-size:9px;
-  color:var(--gold-d);
-  letter-spacing:0.05em;
-}
+.m-hint{font-size:10px;color:var(--mid)}
 
 /* ─── TABLE ─── */
+.tbl-wrap{
+  background:var(--white);
+  border:1px solid var(--faint);
+  overflow:hidden;
+}
+
 table{width:100%;border-collapse:collapse}
 
-thead tr{border-bottom:1px solid rgba(184,151,106,0.3)}
+thead{background:var(--navy)}
 
 th{
+  font-family:'DM Mono',monospace;
   font-size:9px;
-  letter-spacing:0.2em;
-  color:var(--gold-d);
+  letter-spacing:0.18em;
+  color:rgba(255,255,255,0.6);
   text-transform:uppercase;
-  padding:0 12px 14px;
+  padding:12px 16px;
   text-align:right;
   font-weight:300;
 }
 th:first-child{text-align:left}
 
 td{
-  padding:13px 12px;
+  padding:13px 16px;
   text-align:right;
-  color:rgba(180,165,145,0.7);
-  font-size:12px;
-  border-bottom:1px solid rgba(255,255,255,0.04);
+  color:var(--mid);
+  font-size:13px;
+  border-bottom:1px solid var(--faint);
+  font-family:'DM Mono',monospace;
+  font-weight:300;
 }
-td:first-child{text-align:left;color:var(--dim)}
+td:first-child{
+  text-align:left;
+  font-family:'DM Sans',sans-serif;
+  color:var(--ink);
+  font-weight:300;
+}
 
 tbody tr:last-child td{border-bottom:none}
-tbody tr:hover td{background:rgba(184,151,106,0.04)}
+tbody tr:hover td{background:#fafaf8}
 
-tr.cur td{
-  color:var(--paper);
-  background:rgba(184,151,106,0.06);
-}
+tr.cur{background:var(--navy)}
+tr.cur td{color:rgba(255,255,255,0.75);border-bottom-color:transparent}
 tr.cur td:first-child{
-  border-left:1px solid var(--gold);
-  padding-left:11px;
-  color:var(--gold-l);
+  color:#fff;
+  font-weight:500;
 }
 
 .badge{
+  font-family:'DM Mono',monospace;
   font-size:9px;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  padding:2px 8px;
-  border-radius:1px;
+  letter-spacing:0.08em;
+  padding:3px 10px;
+  border-radius:2px;
 }
-.badge.g{color:#7fb08a;background:rgba(127,176,138,0.08);border:1px solid rgba(127,176,138,0.2)}
-.badge.r{color:#b07070;background:rgba(176,112,112,0.08);border:1px solid rgba(176,112,112,0.2)}
-.badge.a{color:#b09a60;background:rgba(176,154,96,0.08);border:1px solid rgba(176,154,96,0.2)}
+.badge.g{background:var(--green-bg);color:var(--green)}
+.badge.r{background:var(--red-bg);color:var(--red)}
+.badge.a{background:var(--amber-bg);color:var(--amber)}
 
 /* ─── FOOTER ─── */
-.foot{
-  margin-top:80px;
-  padding-top:24px;
-  border-top:1px solid rgba(184,151,106,0.15);
+footer{
+  margin-top:48px;
+  padding-top:20px;
+  border-top:1px solid var(--faint);
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  font-family:'DM Mono',monospace;
+  font-size:10px;
+  color:var(--mid);
+  letter-spacing:0.08em;
 }
-.foot-note{font-size:10px;color:var(--gold-d);letter-spacing:0.1em}
-.foot-mark{font-family:'Cormorant Garamond',serif;font-size:13px;color:rgba(184,151,106,0.3);font-style:italic}
 
-@media(max-width:640px){
-  .hd{grid-template-columns:1fr;gap:20px}
-  .hd-right{text-align:left}
-  .metrics{grid-template-columns:1fr 1fr}
-  .m{border-bottom:1px solid rgba(184,151,106,0.15)}
-  .m:nth-child(2n){border-right:none}
-  .slider-row{grid-template-columns:1fr 80px;gap:16px}
-  .slider-row .sl-range{display:none}
-  thead th:nth-child(3),td:nth-child(3){display:none}
+@media(max-width:680px){
+  header{grid-template-columns:1fr;gap:20px}
+  .hd-eco{text-align:left}
+  .metrics{grid-template-columns:1fr 1fr;gap:8px}
+  .slider-row{grid-template-columns:1fr 80px;gap:12px}
+  .slider-row input{display:none}
+  th:nth-child(3),td:nth-child(3){display:none}
 }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header class="hd">
-    <div class="hd-left">
+  <header>
+    <div>
       <span class="kicker">Analyse financière · AED</span>
       <h1>Abonnement<br><i>vs</i> location à l'unité</h1>
     </div>
-    <div class="hd-right">
-      <div class="hd-stat-label">Situation actuelle</div>
-      <div class="hd-stat-val" id="hd-eco">—</div>
+    <div class="hd-eco">
+      <div class="hd-eco-lbl">Économie nette / mois</div>
+      <div class="hd-eco-val" id="hd-eco">—</div>
     </div>
   </header>
 
   <section class="sec">
-    <p class="sec-label">Paramètres</p>
-    <div class="sliders">
+    <p class="sec-title">Paramètres</p>
+    <div>
       <div class="slider-row">
         <span class="sl-name">Locations par mois</span>
-        <input class="sl-range" type="range" id="nb" min="1" max="10" step="1" value="2">
+        <input type="range" id="nb" min="1" max="10" step="1" value="2">
         <span class="sl-val" id="nb-out">2</span>
       </div>
       <div class="slider-row">
         <span class="sl-name">Prix unitaire sans abonnement</span>
-        <input class="sl-range" type="range" id="price" min="1000" max="5000" step="50" value="2150">
+        <input type="range" id="price" min="1000" max="5000" step="50" value="2150">
         <span class="sl-val" id="price-out">2 150 AED</span>
       </div>
       <div class="slider-row">
         <span class="sl-name">Prix unitaire avec abonnement</span>
-        <input class="sl-range" type="range" id="disc" min="800" max="4000" step="50" value="1550">
+        <input type="range" id="disc" min="800" max="4000" step="50" value="1550">
         <span class="sl-val" id="disc-out">1 550 AED</span>
       </div>
       <div class="slider-row">
         <span class="sl-name">Abonnement mensuel</span>
-        <input class="sl-range" type="range" id="abo" min="200" max="3000" step="50" value="990">
+        <input type="range" id="abo" min="200" max="3000" step="50" value="990">
         <span class="sl-val" id="abo-out">990 AED</span>
       </div>
       <div class="slider-row">
         <span class="sl-name">Frais d'entrée</span>
-        <input class="sl-range" type="range" id="entry" min="0" max="50000" step="500" value="18990">
+        <input type="range" id="entry" min="0" max="50000" step="500" value="18990">
         <span class="sl-val" id="entry-out">18 990 AED</span>
       </div>
     </div>
   </section>
 
   <section class="sec">
-    <p class="sec-label">Résumé</p>
+    <p class="sec-title">Résumé — situation actuelle</p>
     <div class="metrics">
-      <div class="m">
+      <div class="m" id="m-brut">
         <span class="m-lbl">Éco. brute / mois</span>
         <div class="m-num" id="s-brut">—</div>
         <div class="m-hint">avant abonnement</div>
       </div>
-      <div class="m">
+      <div class="m" id="m-net">
         <span class="m-lbl">Éco. nette / mois</span>
         <div class="m-num" id="s-net">—</div>
         <div class="m-hint">après abonnement</div>
       </div>
-      <div class="m">
+      <div class="m" id="m-roi">
         <span class="m-lbl">ROI</span>
         <div class="m-num" id="s-roi">—</div>
         <div class="m-hint">amortissement entrée</div>
       </div>
-      <div class="m">
+      <div class="m" id="m-seuil">
         <span class="m-lbl">Seuil rentabilité</span>
         <div class="m-num" id="s-seuil">—</div>
         <div class="m-hint">locations / mois min.</div>
@@ -341,31 +349,33 @@ tr.cur td:first-child{
   </section>
 
   <section class="sec">
-    <p class="sec-label">Comparatif par volume</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Locations</th>
-          <th>Sans abo</th>
-          <th>Avec abo</th>
-          <th>Éco. nette</th>
-          <th>ROI entrée</th>
-          <th>Verdict</th>
-        </tr>
-      </thead>
-      <tbody id="tbody"></tbody>
-    </table>
+    <p class="sec-title">Comparatif par volume</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Locations</th>
+            <th>Sans abo</th>
+            <th>Avec abo</th>
+            <th>Éco. nette</th>
+            <th>ROI entrée</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
   </section>
 
-  <footer class="foot">
-    <span class="foot-note">Usage confidentiel · interne</span>
-    <span class="foot-mark">Analyse financière</span>
+  <footer>
+    <span>Usage confidentiel · interne</span>
+    <span>Analyse financière</span>
   </footer>
 </div>
 
 <script>
 function fmt(n){return Math.round(n).toLocaleString('fr-FR')}
-function fmtAED(n){return fmt(n)+' AED'}
+function fmtA(n){return fmt(n)+' AED'}
 
 function compute(nb,price,disc,abo,entry){
   const sans=nb*price,avec=nb*disc+abo;
@@ -373,18 +383,21 @@ function compute(nb,price,disc,abo,entry){
   const roi_m=net>0?entry/net:Infinity;
   return{sans,avec,brut,net,roi_m,roi_y:roi_m/12};
 }
-
 function seuil(price,disc,abo){
   const d=price-disc;
   return d<=0?Infinity:Math.ceil(abo/d);
 }
-
 function verdict(roi_y,net){
-  if(net<=0) return '<span class="badge r">perte</span>';
-  if(roi_y>7) return '<span class="badge r">ROI > 7 ans</span>';
-  if(roi_y>3) return '<span class="badge a">ROI > 3 ans</span>';
-  if(roi_y>1) return '<span class="badge a">ROI > 1 an</span>';
-  return '<span class="badge g">rentable</span>';
+  if(net<=0)return'<span class="badge r">perte</span>';
+  if(roi_y>7)return'<span class="badge r">ROI > 7 ans</span>';
+  if(roi_y>3)return'<span class="badge a">ROI > 3 ans</span>';
+  if(roi_y>1)return'<span class="badge a">ROI > 1 an</span>';
+  return'<span class="badge g">rentable</span>';
+}
+
+function setCard(id,cls){
+  const el=document.getElementById(id);
+  el.className='m '+cls;
 }
 
 function update(){
@@ -400,28 +413,35 @@ function update(){
   document.getElementById('abo-out').textContent=fmt(abo)+' AED';
   document.getElementById('entry-out').textContent=fmt(entry)+' AED';
 
-  const cur=compute(nb,price,disc,abo,entry);
+  const c=compute(nb,price,disc,abo,entry);
 
-  document.getElementById('hd-eco').textContent=(cur.net>=0?'+':'')+fmtAED(cur.net)+' / mois';
+  document.getElementById('hd-eco').textContent=(c.net>=0?'+':'')+fmtA(c.net);
 
-  document.getElementById('s-brut').textContent=fmtAED(cur.brut);
+  document.getElementById('s-brut').textContent=fmtA(c.brut);
+  setCard('m-brut','');
 
   const nEl=document.getElementById('s-net');
-  nEl.textContent=(cur.net>=0?'+':'')+fmtAED(cur.net);
-  nEl.className='m-num '+(cur.net>0?'pos':'neg');
+  nEl.textContent=(c.net>=0?'+':'')+fmtA(c.net);
+  const nCls=c.net>0?'pos':'neg';
+  nEl.className='m-num '+nCls;
+  setCard('m-net',nCls);
 
   const rEl=document.getElementById('s-roi');
-  if(!isFinite(cur.roi_m)){rEl.textContent='∞';rEl.className='m-num neg';}
+  if(!isFinite(c.roi_m)){rEl.textContent='∞';rEl.className='m-num neg';setCard('m-roi','neg');}
   else{
-    const y=cur.roi_y;
+    const y=c.roi_y;
     rEl.textContent=y>10?'> 10 ans':y.toFixed(1)+' ans';
-    rEl.className='m-num '+(y>7?'neg':y>3?'warn':'pos');
+    const rCls=y>7?'neg':y>3?'warn':'pos';
+    rEl.className='m-num '+rCls;
+    setCard('m-roi',rCls);
   }
 
   const s=seuil(price,disc,abo);
   const sEl=document.getElementById('s-seuil');
   sEl.textContent=isFinite(s)?s+' loc.':'∞';
-  sEl.className='m-num '+(nb>=s?'pos':'warn');
+  const sCls=nb>=s?'pos':'warn';
+  sEl.className='m-num '+sCls;
+  setCard('m-seuil',sCls);
 
   const tbody=document.getElementById('tbody');
   tbody.innerHTML='';
@@ -429,12 +449,12 @@ function update(){
     const r=compute(i,price,disc,abo,entry);
     const tr=document.createElement('tr');
     if(i===nb)tr.className='cur';
-    const netColor=r.net>0?'#7fb08a':'#b07070';
+    const netC=r.net>0?'var(--green)':'var(--red)';
     tr.innerHTML=`
-      <td>${i} loc${i>1?'s':''}.</td>
-      <td>${fmtAED(r.sans)}</td>
-      <td>${fmtAED(r.avec)}</td>
-      <td style="color:${netColor}">${r.net>0?'+':''}${fmtAED(r.net)}</td>
+      <td>${i} location${i>1?'s':''}</td>
+      <td>${fmtA(r.sans)}</td>
+      <td>${fmtA(r.avec)}</td>
+      <td style="color:${netC}">${r.net>0?'+':''}${fmtA(r.net)}</td>
       <td>${!isFinite(r.roi_m)?'∞':r.roi_y>10?'> 10 ans':r.roi_y.toFixed(1)+' ans'}</td>
       <td>${verdict(r.roi_y,r.net)}</td>`;
     tbody.appendChild(tr);
@@ -443,7 +463,7 @@ function update(){
   ['nb','price','disc','abo','entry'].forEach(id=>{
     const el=document.getElementById(id);
     const pct=(el.value-el.min)/(el.max-el.min)*100;
-    el.style.background=`linear-gradient(90deg,var(--gold) ${pct}%,rgba(184,151,106,0.2) ${pct}%)`;
+    el.style.background=`linear-gradient(90deg,var(--navy) ${pct}%,var(--faint) ${pct}%)`;
   });
 }
 
